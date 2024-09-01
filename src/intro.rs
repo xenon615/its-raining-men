@@ -212,7 +212,7 @@ fn enter_portal (
         let dir = Dir3::new((Vec3::ZERO - t.translation).normalize()).unwrap();
         cmd.entity(r_e).insert(
             MovementPath::new(&vec! [
-                (t.translation.with_y(100.), 1., Some(3), Some(dir))
+                (t.translation.with_y(100.), 5., Some(3), Some(dir))
             ], 0, Vec3::ZERO)
         );        
     }

@@ -1,15 +1,16 @@
-use bevy::{prelude::*, window::WindowResolution};
+use bevy::{prelude::*, window::{
+    // WindowResolution, 
+    WindowMode
+}};
 use bevy_gltf_components::ComponentsFromGltfPlugin;
 use bevy_registry_export::ExportRegistryPlugin;
+use music::MusicEvent;
 mod camera;
 mod env;
 mod girls;
 mod camera_target;
 mod shared;
-// mod cam_fly;
-// mod scenario;
 mod leader;
-// mod portal;
 mod men;
 mod airplane;
 mod lift;
@@ -45,7 +46,8 @@ fn main() {
         DefaultPlugins.set(
             WindowPlugin {
                 primary_window : Some(Window {
-                    resolution : WindowResolution::new(1400., 900.),
+                    // resolution : WindowResolution::new(1400., 900.),
+                    mode: WindowMode::BorderlessFullscreen,
                     position: WindowPosition::Centered(MonitorSelection::Primary),
                     ..default()
                 }),
@@ -57,11 +59,7 @@ fn main() {
         camera::CameraPlugin,
         env::EnvPlugin,
         girls::GirlsPlugin,
-        // cam_fly::CamFlyPlugin,
-
-        // scenario::ScenarioPlugin,
         leader::LeaderPlugin,
-        // portal::PortalPlugin,
         men::MenPlugin,
         airplane::AirplanePlugin,
         lift::LiftPlugin,
@@ -75,6 +73,7 @@ fn main() {
     ))
     .init_state::<GameState>()
     .add_systems(Update, check_ready.run_if(in_state(GameState::Loading)))
+    .observe(the_end)
     .run();
 }
 
@@ -89,3 +88,14 @@ fn check_ready(
         // next.set(GameState::Finish);
     }
 } 
+
+// --
+
+fn the_end(
+    trigger: Trigger<MusicEvent>,
+    mut exit: EventWriter<AppExit>
+) {
+    if  MusicEvent(GameState::Finish, 1) == *trigger.event() {
+        exit.send(AppExit::Success);
+    }
+}

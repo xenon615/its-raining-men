@@ -119,14 +119,14 @@ pub fn do_moving (
 
 // ---
 
-#[allow(dead_code)]
-pub fn debug_moving<M: Component>(
-    objects_q: Query<(&mut Transform, &mut MovementPath), With<M>>,
-    mut gizmos: Gizmos
-) {
-    for (gt, mp) in &objects_q {
-        if mp.points.len() > 0 {
-            gizmos.line(gt.translation, mp.points[0].pos, Color::srgb(0., 1., 0.));
-        }
-    }
-}
+// #[allow(dead_code)]
+// pub fn debug_moving<M: Component>(
+//     objects_q: Query<(&mut Transform, &mut MovementPath), With<M>>,
+//     mut gizmos: Gizmos
+// ) {
+//     for (gt, mp) in &objects_q {
+//         if mp.points.len() > 0 {
+//             gizmos.line(gt.translation, mp.points[0].pos, Color::srgb(0., 1., 0.));
+//         }
+//     }
+// }

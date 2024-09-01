@@ -64,7 +64,8 @@ impl FromWorld for MusicTimeline {
 
                 (76., false, MusicEvent(GameState::Raining, 0)), // its raining
 
-                (120.0, false, MusicEvent(GameState::Finish, 0))
+                (120.0, false, MusicEvent(GameState::Finish, 0)),
+                (160.0, false, MusicEvent(GameState::Finish, 1))
 
             ]
         }

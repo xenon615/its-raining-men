@@ -131,6 +131,8 @@ fn music_event(
     }
 }
 
+// ---
+
 fn enter_sing(
     mut cmd: Commands,
     leader_q: Query<Entity, With<Leader>>
@@ -242,6 +244,7 @@ fn finish (
 fn super_finish(
     mut cmd: Commands,
     l_q: Query<Entity, With<Leader>>
+
 ) {
     let le = l_q.get_single().unwrap();
     cmd.trigger(SetCameraTarget(
@@ -251,4 +254,27 @@ fn super_finish(
         ,
         0
     ));
+    cmd.spawn(
+        NodeBundle {
+            style: Style {
+                width: Val::Vw(100.),
+                height: Val::Vh(100.),
+                align_items: AlignItems::Center,
+                justify_content: JustifyContent::Center,
+                ..default()
+            },
+            ..default()
+        }
+    )
+    .with_children(|p| {
+        p.spawn(
+            TextBundle::from_section("Thankyou for watching", TextStyle {
+                font_size: 70.,
+                color: Color::srgba(1., 1., 1., 0.5),
+                ..default()
+            })
+        );  
+    })
+    
+    ;
 }
